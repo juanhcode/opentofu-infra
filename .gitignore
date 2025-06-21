@@ -1,0 +1,13 @@
+# Archivos de estado (no subir nunca)
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.*
+
+# Archivos de lock y datos locales
+.terraform/
+.terraform.lock.hcl
+
+# Archivos de credenciales locales (por si acaso)
+*.tfvars
+*.tfvars.json
