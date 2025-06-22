@@ -40,15 +40,25 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
-resource "google_compute_firewall" "allow_api_8080" {
-  name    = "allow-api-8080"
+resource "google_compute_firewall" "allow_observability_ports" {
+  name    = "allow-observability-ports"
   network = "default"
 
   allow {
     protocol = "tcp"
-    ports    = ["8080"]
+    ports    = [
+      "3000",   # Grafana
+      "20001",  # Kiali
+      "9090",   # Prometheus
+      "80",     # Tracing (Jaeger)
+      "9411",   # Zipkin
+      "16685",  # Jaeger gRPC
+      "14268", "14250",  # Jaeger collector ports
+      "15443", "15021", "31400"
+    ]
   }
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["allow-api"]
 }
+
